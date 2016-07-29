@@ -1,11 +1,14 @@
 #run me parent directory i.e. /.../Tembryo
 
+git clone https://github.com/Tembryo/deployment-scripts.git
+
 git clone https://github.com/Tembryo/tensorflow-scoring.git
 git clone https://github.com/Tembryo/java-extraction.git
 git clone https://github.com/Tembryo/python-analysis.git
 
 git clone https://github.com/Tembryo/wisdota-shared-code.git
 
+git clone https://github.com/Tembryo/wisdota-nginx.git
 git clone https://github.com/Tembryo/wisdota-webserver.git
 git clone https://github.com/Tembryo/wisdota-scheduler.git
 git clone https://github.com/Tembryo/wisdota-retrieve.git

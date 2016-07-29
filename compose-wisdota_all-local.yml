@@ -28,7 +28,7 @@ webserver:
     - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/webserver:/storage
     - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/shared:/shared
   environment:
-    VERSION: "DEV"
+    VERSION: "LOCAL"
     VIRTUAL_HOST: "localhost"
     VIRTUAL_PORT: "42000"
   links:
@@ -41,7 +41,7 @@ scheduler:
     - /home/fischerq/Documents/Tembryo/wisdota-scheduler/src:/source:ro
     - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
   environment:
-    VERSION: "DEV"
+    VERSION: "LOCAL"
   links:
     - postgres:POSTGRES_IP
 analysis:
@@ -57,7 +57,7 @@ analysis:
     - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/shared:/shared
     - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/files/analysis:/files:ro
   environment:
-    VERSION: "DEV"
+    VERSION: "LOCAL"
   links:
     - postgres:POSTGRES_IP
 retrieve:
@@ -68,7 +68,7 @@ retrieve:
     - /home/fischerq/Documents/Tembryo/wisdota-retrieve/src:/source:ro
     - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
   environment:
-    VERSION: "DEV"
+    VERSION: "LOCAL"
   links:
     - postgres:POSTGRES_IP
 download:
@@ -79,7 +79,7 @@ download:
     - /home/fischerq/Documents/Tembryo/wisdota-download/src:/source:ro
     - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
   environment:
-    VERSION: "DEV"
+    VERSION: "LOCAL"
   links:
     - postgres:POSTGRES_IP
 crawler:
@@ -90,6 +90,6 @@ crawler:
     - /home/fischerq/Documents/Tembryo/wisdota-crawl/src:/source:ro
     - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
   environment:
-    VERSION: "DEV"
+    VERSION: "LOCAL"
   links:
     - postgres:POSTGRES_IP
