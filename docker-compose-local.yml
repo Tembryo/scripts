@@ -1,0 +1,95 @@
+proxy:
+  container_name: wisdota-proxy
+  image: jwilder/nginx-proxy
+  ports:
+    - "80:80"
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/nginx/vhosts:/etc/nginx/vhost.d:ro
+postgres:
+  container_name: postgres-container
+  image: postgres:9.4
+  expose:
+    - "5432"
+  environment:
+    POSTGRES_USER: "wisdota"
+    POSTGRES_PASSWORD: "the-database-elephant"
+    PGDATA: "/postgres/data"
+  volumes:
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/postgres:/postgres
+webserver:
+  build: ../wisdota-webserver
+  expose:
+    - "42000"
+  volumes:
+    - /home/fischerq/Documents/Tembryo/wisdota-webserver/src:/source:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-webserver/files:/files:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/webserver:/storage
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/shared:/shared
+  environment:
+    VERSION: "DEV"
+    VIRTUAL_HOST: "localhost"
+    VIRTUAL_PORT: "42000"
+  links:
+    - postgres:POSTGRES_IP
+scheduler:
+  build: ../wisdota-scheduler
+  volumes:
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/scheduler:/storage
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/shared:/shared
+    - /home/fischerq/Documents/Tembryo/wisdota-scheduler/src:/source:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
+  environment:
+    VERSION: "DEV"
+  links:
+    - postgres:POSTGRES_IP
+analysis:
+  build: ../wisdota-analysis
+  volumes:
+    - /home/fischerq/Documents/Tembryo/wisdota-analysis/server-src:/source:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-analysis/extractor:/extractor:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-analysis/analysis:/analysis:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-analysis/score:/score:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
+
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/analysis:/storage
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/shared:/shared
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/files/analysis:/files:ro
+  environment:
+    VERSION: "DEV"
+  links:
+    - postgres:POSTGRES_IP
+retrieve:
+  build: ../wisdota-retrieve
+  volumes:
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/retrieve:/storage
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/shared:/shared
+    - /home/fischerq/Documents/Tembryo/wisdota-retrieve/src:/source:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
+  environment:
+    VERSION: "DEV"
+  links:
+    - postgres:POSTGRES_IP
+download:
+  build: ../wisdota-download
+  volumes:
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/download:/storage
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/shared:/shared
+    - /home/fischerq/Documents/Tembryo/wisdota-download/src:/source:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
+  environment:
+    VERSION: "DEV"
+  links:
+    - postgres:POSTGRES_IP
+crawler:
+  build: ../wisdota-crawl
+  volumes:
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/crawler:/storage
+    - /home/fischerq/Documents/Wisdota/dota-analysis/web-server/storage/shared:/shared
+    - /home/fischerq/Documents/Tembryo/wisdota-crawl/src:/source:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
+  environment:
+    VERSION: "DEV"
+  links:
+    - postgres:POSTGRES_IP
