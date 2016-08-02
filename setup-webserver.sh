@@ -12,6 +12,8 @@ pushd wisdota-shared-code
 sudo npm install
 popd
 
-echo "install docker  and docker-compose yourself"
+echo "install docker"
+echo "modify compose-local_webserver-dev_backend.yml and set the local paths that start with /home/fischerq/Documents/Tembryo/ "
+echo "and then do: docker-compose -f compose-local_webserver-dev_backend.yml up"
 
 popd 
