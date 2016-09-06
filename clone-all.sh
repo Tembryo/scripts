@@ -1,5 +1,7 @@
 #run me parent directory i.e. /.../Tembryo
 
+git clone https://github.com/Tembryo/vagrant-webdev.git
+
 git clone https://github.com/Tembryo/deployment-scripts.git
 
 git clone https://github.com/Tembryo/tensorflow-scoring.git
