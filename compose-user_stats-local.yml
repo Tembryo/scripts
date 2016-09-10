@@ -1,8 +1,8 @@
-dataset-export:
-  build: ../wisdota-dataset-export
+user-stats:
+  build: ../wisdota-user-stats
   volumes:
     - /home/fischerq/Documents/Tembryo/storage/shared:/shared
-    - /home/fischerq/Documents/Tembryo/wisdota-dataset-export/src:/source:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-user-stats/src:/source:ro
     - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
   environment:
     VERSION: "LOCAL"

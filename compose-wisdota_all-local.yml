@@ -1,6 +1,5 @@
 proxy:
-  container_name: wisdota-proxy
-  image: jwilder/nginx-proxy
+  build: ../wisdota-nginx
   ports:
     - "80:80"
   volumes:
