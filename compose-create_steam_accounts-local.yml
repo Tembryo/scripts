@@ -1,0 +1,10 @@
+create-steam-accounts:
+  build: ../wisdota-create-steam-accounts
+  volumes:
+    - /home/fischerq/Documents/Tembryo/storage/shared:/shared
+    - /home/fischerq/Documents/Tembryo/wisdota-create-steam-accounts/src:/source:ro
+    - /home/fischerq/Documents/Tembryo/wisdota-shared-code:/shared-code:ro
+  environment:
+    VERSION: "LOCAL"
+  external_links:
+    - postgres-container:POSTGRES_IP
